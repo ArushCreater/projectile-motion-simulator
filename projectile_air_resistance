@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# I am assuming that the weight of the mass is 5kg and we are on a flat Earth
+m = 5
+g = 9.8
+k = 0.0088
+dt = 0.001
+
+Xv = float(input("What is the inital x-velocity? "))
+Yv = float(input("What is the initla y-velocity? "))
+
+x0 = 0.0
+y0 = 0.0
+
+x_list = [x0]
+y_list = [y0]
+
+while y0 >= 0:
+    v = np.sqrt(Xv**2 + Yv**2)
+    ax = -k/m * Yv * v
+    ay = -g - k/m * Yv * v
+    Xv += ax * dt
+    Yv += ay * dt
+    
+    # Update positions
+    x0 += Xv * dt
+    y0 += Yv * dt
+    
+    # Store positions
+    x_list.append(x0)
+    y_list.append(y0)
+
+
+
+
+plt.plot(x_list, y_list, label="Projectile with air resistance")
+plt.xlabel("X Position (m)")
+plt.ylabel("Y Position (m)")
+plt.title("Projectile Motion with Air Resistance")
+plt.grid(True)
+plt.legend()
+plt.savefig("projectile_motion.png")
